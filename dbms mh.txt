@@ -1,0 +1,88 @@
+CREATE TABLE publisher (
+    name VARCHAR(255) PRIMARY KEY,
+    address VARCHAR(255),
+    phone VARCHAR(20)
+);
+INSERT INTO publisher (name, address, phone)
+VALUES
+    ('hemanth', 'hassan', '8754786869'),
+    ('harsha', 'bangalore', '465488676'),
+    ('harish', 'mysore', '233566757'),
+    ('mahesh', 'hassan', '674523422),
+    ('chandan', 'bangalore', '456476878');
+------------------------------------------------------------------------
+
+CREATE TABLE book (
+    book_id INT PRIMARY KEY,
+    publisher_name VARCHAR(255),
+    pub_year INT,
+    FOREIGN KEY (publisher_name) REFERENCES publisher(name)
+);
+INSERT INTO book (book_id, publisher_name, pub_year)
+VALUES
+    (1, 'hemanth', 2020),
+    (2, 'harsha', 2018),
+    (3, 'harish', 2019),
+    (4, 'mahesh', 2021),
+    (5, 'chandan', 2017);
+----------------------------------------------------------------------
+CREATE TABLE book_authors (
+    book_id INT,
+    author_name VARCHAR(255),
+    PRIMARY KEY (book_id, author_name),
+    FOREIGN KEY (book_id) REFERENCES book(book_id)
+);
+INSERT INTO book_authors (book_id, author_name)
+VALUES
+    (1, 'kumar'),
+    (2, 'raj'),
+    (3, 'bheem'),
+    (4, 'patil'),
+    (5, 'jhon');
+---------------------------------------------------------------------
+
+CREATE TABLE book_copies (
+    book_id INT,
+    program_id INT,
+    no_of_copies INT,
+    PRIMARY KEY (book_id, program_id),
+    FOREIGN KEY (book_id) REFERENCES book(book_id)
+);
+INSERT INTO book_copies (book_id, program_id, no_of_copies)
+VALUES
+    (1, 101, 50),
+    (2, 102, 30),
+    (3, 103, 40),
+    (4, 104, 25),
+    (5, 105, 20);
+-------------------------------------------------------------------------
+
+CREATE TABLE book_lending (
+    book_id INT,
+    program_id INT,
+    card_num INT,
+    date_out DATE,
+    due_date DATE,
+    PRIMARY KEY (book_id, program_id, card_num),
+    FOREIGN KEY (book_id, program_id) REFERENCES book_copies(book_id, program_id)
+);
+INSERT INTO book_lending (book_id, program_id, card_num, date_out, due_date)
+VALUES
+    (1, 101, 1001, '2023-01-01', '2023-01-15'),
+    (2, 102, 1002, '2023-02-01', '2023-02-15'),
+    (3, 103, 1003, '2023-03-01', '2023-03-15'),
+    (4, 104, 1004, '2023-04-01', '2023-04-15'),
+    (5, 105, 1005, '2023-05-01', '2023-05-15');
+------------------------------------------------------------------------
+CREATE TABLE library_program (
+    program_id INT PRIMARY KEY,
+    programmer_name VARCHAR(255),
+    address VARCHAR(255)
+);
+INSERT INTO library_program (program_id, programmer_name, address)
+VALUES
+    (101, 'jhon', 'hassan'),
+    (102, 'mohan', 'bangalore'),
+    (103, 'sudeep', 'mysore'),
+    (104, 'deepak', 'chanai'),
+    (105, 'king', 'hassan');
